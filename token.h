@@ -1,4 +1,6 @@
-// By Zac Conlin
+//
+// Created by zconlin on 1/27/2023.
+//
 
 #pragma once
 

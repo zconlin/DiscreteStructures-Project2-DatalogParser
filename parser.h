@@ -2,6 +2,15 @@
 // Created by zconlin on 2/2/2023.
 //
 
+// "..\\tests\project2-tests\in10.txt"
+
+// Write parsing functions for the remaining grammar rules.
+//
+//Fix error handling in the parser. (Throw an Exception in the 'throwError' function.) (Catch the Exception at the top of the parser and report the error.)
+//
+//Write classes for Parameter, Predicate, Rule, and Datalog Program.
+//
+//Add code to the parser to create Parameter, Predicate, and Rule objects while parsing, and construct a Datalog Program object that contains lists of Schemes, Facts, Rules, and Queries.
 #pragma once
 
 #include "token.h"

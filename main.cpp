@@ -8,21 +8,38 @@
 #include <iostream>
 #include <fstream>
 
-int main() { // Test scheme with bad input
+int main (int argc, char* argv[]) {
+    ifstream f;
+    f.open(argv[1]);
 
-    vector<Token> tokens = {
-            Token(ID,"Ned",2),
-            //Token(LEFT_PAREN,"(",2),
-            Token(ID,"Ted",2),
-            Token(COMMA,",",2),
-            Token(ID,"Zed",2),
-            Token(RIGHT_PAREN,")",2),
-    };
+    string content((istreambuf_iterator<char>(f)), (istreambuf_iterator<char>()));
 
-    Parser p = Parser(tokens);
-    p.scheme();
+    Scanner s = Scanner(content);
+    vector<Token> t = s.scanLoop();
+    for (Token token : t) {
+        cout << token.toString() << endl;
+    }
+    cout << "Total Tokens = " << t.size() << "\n";
 
+    return 0;
 }
+
+
+//int main() { // Test scheme with bad input
+//
+//    vector<Token> tokens = {
+//            Token(ID,"Ned",2),
+//            //Token(LEFT_PAREN,"(",2),
+//            Token(ID,"Ted",2),
+//            Token(COMMA,",",2),
+//            Token(ID,"Zed",2),
+//            Token(RIGHT_PAREN,")",2),
+//    };
+//
+//    Parser p = Parser(tokens);
+//    p.scheme();
+//
+//}
 
 //int main() { // Test scheme with valid input
 //
@@ -104,19 +121,4 @@ int main() { // Test scheme with bad input
 //
 //}
 
-//int main (int argc, char* argv[]) { // Main from Project 1
-//    ifstream f;
-//    f.open(argv[1]);
-//
-//    string content((istreambuf_iterator<char>(f)), (istreambuf_iterator<char>()));
-//
-//    Scanner s = Scanner(content);
-//    vector<Token> t = s.scanLoop();
-//        for (Token token : t) {
-//           cout << token.toString() << endl;
-//        }
-//    cout << "Total Tokens = " << t.size() << "\n";
-//
-//    return 0;
-//}
 

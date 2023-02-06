@@ -32,7 +32,7 @@ public:
     void match(TokenType t) {
         cout << "match: " << t << endl; // This is a debug print, remove it later
         if (tokens.at(c).getType() == t) {
-            c = c + 1;
+            advanceToken();
         }
         else throwError();
     }
@@ -41,11 +41,9 @@ public:
         if (tokenType() == COMMA) {
             match(COMMA);
             match(ID);
-//            idList();
+            idList();
         } else {
             // lambda
-            cout << "Done" << endl; //Debug
-            throwError();
         }
     }
 };

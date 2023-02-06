@@ -25,25 +25,27 @@ public:
     void throwError() { // Is called when the Parser finds an error
         // This is not complete
         cout << "Error" << endl;
+
     }
-    // The 'match' function is another important support function that
-    // will make the parsing routines simpler and easier to write. The 'match'
-    // function is called when parsing a terminal symbol. (This 'match' function
-    // has a debug print, to be removed later.) (The debug print is helpful in
-    // testing the parsing functions below.)
+
+    int c = 0;
     void match(TokenType t) {
         cout << "match: " << t << endl; // This is a debug print, remove it later
-        // add code for matching token type t
-
-//        The following pseudo-code describes how the 'match' function should work.
-//        if the current token type matches t
-//        advance to the next token
-//        else
-//        report a syntax error
-        int c = 0;
         if (tokens.at(c).getType() == t) {
-            c++;
+            c = c + 1;
         }
         else throwError();
+    }
+
+    void idList() {
+        if (tokenType() == COMMA) {
+            match(COMMA);
+            match(ID);
+//            idList();
+        } else {
+            // lambda
+            cout << "Done" << endl; //Debug
+            throwError();
+        }
     }
 };

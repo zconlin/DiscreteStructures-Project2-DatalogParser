@@ -46,4 +46,21 @@ public:
             // lambda
         }
     }
+
+    void scheme() {
+        if (tokenType() == ID) {
+            cout << "ID" << endl;
+            match(LEFT_PAREN);
+            cout << "LP" << endl;
+            match(ID);
+            cout << "ID" << endl;
+            idList();
+            cout << "idList()" << endl;
+            match(RIGHT_PAREN);
+            cout << "RP" << endl;
+        } else {
+            cout << "End" << endl;
+            // lambda
+        }
+    }
 };

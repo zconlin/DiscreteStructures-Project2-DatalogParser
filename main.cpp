@@ -8,6 +8,22 @@
 #include <iostream>
 #include <fstream>
 
+int main() {
+
+    vector<Token> tokens = { // Test scheme with valid input
+            Token(ID,"Ned",2),
+            Token(LEFT_PAREN,"(",2),
+            Token(ID,"Ted",2),
+            Token(COMMA,",",2),
+            Token(ID,"Zed",2),
+            Token(RIGHT_PAREN,")",2),
+    };
+
+    Parser p = Parser(tokens);
+    p.scheme();
+
+}
+
 //int main() {
 //
 //    vector<Token> tokens = { //Test idList with valid input
@@ -23,20 +39,20 @@
 //
 //}
 
-int main() { //Test idList with bad input
-
-    vector<Token> tokens = {
-            Token(COMMA,",",2),
-            //Token(ID,"Ted",2),
-            Token(COMMA,",",2),
-            Token(ID,"Zed",2),
-            Token(RIGHT_PAREN,")",2),
-    };
-
-    Parser p = Parser(tokens);
-    p.idList();
-
-}
+//int main() { //Test idList with bad input
+//
+//    vector<Token> tokens = {
+//            Token(COMMA,",",2),
+//            //Token(ID,"Ted",2),
+//            Token(COMMA,",",2),
+//            Token(ID,"Zed",2),
+//            Token(RIGHT_PAREN,")",2),
+//    };
+//
+//    Parser p = Parser(tokens);
+//    p.idList();
+//
+//}
 
 //int main() { // Test Match Function
 //

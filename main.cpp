@@ -27,7 +27,7 @@
 int main() {
 
     vector<Token> tokens = {
-            Token(ID,"Ned",2),
+            Token(ID,"Zac",2),
             Token(LEFT_PAREN,"(",2),
             Token(RIGHT_PAREN,")",2),
     };
@@ -42,12 +42,12 @@ int main() {
 
 }
 
-//// Test the 'match' function (main.cpp)
-//// Compile and test.
+// Test the 'match' function (main.cpp)
+// Compile and test.
 //int main() {
 //
 //    vector<Token> tokens = {
-//            Token(ID,"Ned",2),
+//            Token(ID,"Zac",2),
 //            Token(LEFT_PAREN,"(",2),
 //            Token(RIGHT_PAREN,")",2),
 //    };

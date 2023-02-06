@@ -85,4 +85,8 @@ public:
 			out << "(" << typeName(type) << "," << "\"" << value << "\"" << "," << line << ")";
 			return out.str();
 	}
+
+    TokenType getType() const {
+        return type;
+    }
 };

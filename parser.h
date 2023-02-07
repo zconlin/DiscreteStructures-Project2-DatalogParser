@@ -5,12 +5,10 @@
 // "..\\tests\project2-tests\in10.txt"
 
 // Write parsing functions for the remaining grammar rules.
-//
-//Fix error handling in the parser. (Throw an Exception in the 'throwError' function.) (Catch the Exception at the top of the parser and report the error.)
-//
-//Write classes for Parameter, Predicate, Rule, and Datalog Program.
-//
-//Add code to the parser to create Parameter, Predicate, and Rule objects while parsing, and construct a Datalog Program object that contains lists of Schemes, Facts, Rules, and Queries.
+// Fix error handling in the parser. (Throw an Exception in the 'throwError' function.) (Catch the Exception at the top of the parser and report the error.)
+// Write classes for Parameter, Predicate, Rule, and Datalog Program.
+// Add code to the parser to create Parameter, Predicate, and Rule objects while parsing, and construct a Datalog Program object that contains lists of Schemes, Facts, Rules, and Queries.
+
 #pragma once
 
 #include "token.h"
@@ -47,6 +45,7 @@ public:
     }
 
     //// ID         ----------------------------------------------------------------------------------
+    //// idList  	-> 	COMMA ID idList | lambda
     void idList() {
         if (tokenType() == COMMA) {
             match(COMMA);
@@ -58,6 +57,7 @@ public:
     }
 
     //// SCHEME     ----------------------------------------------------------------------------------
+    //// scheme   	-> 	ID LEFT_PAREN ID idList RIGHT_PAREN
     void scheme() {
         if (tokenType() == ID) {
             match(ID);
@@ -65,9 +65,109 @@ public:
             match(ID);
             idList();
             match(RIGHT_PAREN);
+        }
+    }
+
+    //// FACT     ----------------------------------------------------------------------------------
+    //// fact    	->	ID LEFT_PAREN STRING stringList RIGHT_PAREN PERIOD
+    void fact() {
+        if (tokenType() == ID) {
+            match(ID);
+            match(LEFT_PAREN);
+            match(STRING);
+            stringList();
+            match(RIGHT_PAREN);
+            match(PERIOD);
+        }
+    }
+
+    //// RULE     ----------------------------------------------------------------------------------
+    //// rule    	->	headPredicate COLON_DASH predicate predicateList PERIOD
+//    void rule() {
+//        if (tokenType() == headPredicate()) {
+//            headPredicate();
+//            match(COLON_DASH);
+//            predicate();
+//            predicateList();
+//            match(PERIOD);
+//        }
+//    }
+
+    //// QUERY     ----------------------------------------------------------------------------------
+    //// query	        ->      predicate Q_MARK
+//    void query() {
+//        if (tokenType() == predicate()) {
+//            predicate();
+//            match(Q_MARK);
+//        }
+//    }
+
+    //// headPredicate     ----------------------------------------------------------------------------------
+    //// headPredicate	->	ID LEFT_PAREN ID idList RIGHT_PAREN
+    void headPredicate() {
+        if (tokenType() == ID) {
+            match(ID);
+            match(LEFT_PAREN);
+            match(ID);
+            idList();
+            match(RIGHT_PAREN);
+        }
+    }
+
+    //// predicate     ----------------------------------------------------------------------------------
+    //// predicate	->	ID LEFT_PAREN parameter parameterList RIGHT_PAREN
+    void predicate() {
+        if (tokenType() == ID) {
+            match(ID);
+            match(LEFT_PAREN);
+            parameter();
+            parameterList();
+            match(RIGHT_PAREN);
+        }
+    }
+
+    //// predicateList     ----------------------------------------------------------------------------------
+    //// predicateList	->	COMMA predicate predicateList | lambda
+    void predicateList() {
+        if (tokenType() == COMMA) {
+            match(COMMA);
+            predicate();
+            predicateList();
         } else {
             // lambda
         }
     }
 
+    //// parameterList     ----------------------------------------------------------------------------------
+    //// parameterList	-> 	COMMA parameter parameterList | lambda
+    void parameterList() {
+        if (tokenType() == COMMA) {
+            match(COMMA);
+            parameter();
+            parameterList();
+        } else {
+            // lambda
+        }
+    }
+
+    //// stringList     ----------------------------------------------------------------------------------
+    //// stringList	-> 	COMMA STRING stringList | lambda
+    void stringList() {
+        if (tokenType() == COMMA) {
+            match(COMMA);
+            match(STRING);
+            stringList();
+        } else {
+            // lambda
+        }
+    }
+
+    //// parameter     ----------------------------------------------------------------------------------
+    //// parameter	->	STRING | ID
+    void parameter() {
+        if (tokenType() == STRING) {
+            match(STRING);
+            match(ID);
+        }
+    }
 };

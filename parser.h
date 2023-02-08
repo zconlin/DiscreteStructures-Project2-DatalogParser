@@ -22,13 +22,14 @@ private:
 public:
     Parser(const vector<Token>& tokens) : tokens(tokens) { }
 
-    TokenType tokenType() const { // Returns the type of the current Token
 
         return tokens.at(0).getType();
-    }
+    };
+
     void advanceToken() { // Moves to the next Token
         tokens.erase(tokens.begin());
     }
+
     void throwError() { // Is called when the Parser finds an error
         // This is not complete
         cout << "Error" << endl;

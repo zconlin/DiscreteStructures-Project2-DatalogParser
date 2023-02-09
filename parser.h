@@ -2,7 +2,7 @@
 // Created by zconlin on 2/2/2023.
 //
 
-// "..\\tests\project2-tests\in10.txt"
+// "..\\tests\project2-tests\in21.txt"
 
 // Write parsing functions for the remaining grammar rules.
 // Fix error handling in the parser. (Throw an Exception in the 'throwError' function.) (Catch the Exception at the top of the parser and report the error.)
@@ -83,15 +83,15 @@ public:
 
     //// RULE     ----------------------------------------------------------------------------------
     //// rule    	->	headPredicate COLON_DASH predicate predicateList PERIOD
-//    void rule() {
-//        if (tokenType() == headPredicate()) {
-//            headPredicate();
-//            match(COLON_DASH);
-//            predicate();
-//            predicateList();
-//            match(PERIOD);
-//        }
-//    }
+    void rule() {
+        if (tokenType() == headPredicate()) {
+            headPredicate();
+            match(COLON_DASH);
+            predicate();
+            predicateList();
+            match(PERIOD);
+        }
+    }
 
     //// QUERY     ----------------------------------------------------------------------------------
     //// query	        ->      predicate Q_MARK

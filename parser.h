@@ -16,8 +16,8 @@
 #include "token.h"
 #include "scanner.h"
 #include "Parameter.h"
-#include "predicate.h"
-#include "datalogProgram.h"
+#include "Predicate.h"
+#include "DatalogProgram.h"
 #include <vector>
 #include <iostream>
 
@@ -25,7 +25,7 @@ class Parser {
 private:
     vector<Token> tokens;
 public:
-    datalogProgram datalogProgram () {
+    DatalogProgram datalogProgram () {
 
     }
 
@@ -70,7 +70,7 @@ public:
 
     //// SCHEME     ----------------------------------------------------------------------------------
     //// scheme   	-> 	ID LEFT_PAREN ID idList RIGHT_PAREN
-     scheme() {
+     void scheme() {
         if (tokenType() == ID) {
             match(ID);
             match(LEFT_PAREN);
@@ -110,10 +110,11 @@ public:
 
     //// QUERY     ----------------------------------------------------------------------------------
     //// query	        ->      predicate Q_MARK
-    void query() {
+    Predicate query() {
         if (tokenType() == ID) {
             predicate();
             match(Q_MARK);
+            return Predicate(tokenString());
         }
         else {
             throwError();
@@ -137,7 +138,7 @@ public:
 
     //// predicate     ----------------------------------------------------------------------------------
     //// predicate	->	ID LEFT_PAREN Parameter parameterList RIGHT_PAREN
-    void predicate() {
+    Predicate predicate() {
         if (tokenType() == ID) {
             match(ID);
             match(LEFT_PAREN);
@@ -145,6 +146,7 @@ public:
             parameterList();
 //            vector;
             match(RIGHT_PAREN);
+            return Predicate(tokenString());
         }
         else {
             throwError();
@@ -158,6 +160,7 @@ public:
             match(COMMA);
             predicate();
             predicateList();
+            return vector<Parameter>();
         } else {
             // lambda
         }
@@ -171,6 +174,7 @@ public:
             match(COMMA);
             parameter();
             parameterList();
+            return vector<Parameter>();
         } else {
             // lambda
         }
@@ -184,6 +188,7 @@ public:
             match(COMMA);
             match(STRING);
             stringList();
+            return vector<Parameter>();
         } else {
         // lambda
     }
@@ -197,6 +202,7 @@ public:
             match(COMMA);
             match(ID);
             idList();
+        return vector<Parameter>();
         } else {
             // lambda
         }
@@ -208,7 +214,6 @@ public:
     Parameter parameter() {
         if (tokenType() == STRING) {
             match(STRING);
-            tokenString();
             return Parameter(tokenString(),false);
         }
         else if (tokenType() == ID) {

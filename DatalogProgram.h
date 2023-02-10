@@ -6,20 +6,21 @@
 #define CS236PROJECT2_DATALOGPARSER_DATALOGPROGRAM_H
 
 #include <vector>
-#include "rule.h"
+#include "Rule.h"
 
 using namespace std;
 
-class datalogProgram
+class DatalogProgram
 {
 public:
-    datalogProgram(){}
-    ~datalogProgram(){}
+    DatalogProgram(){}
+    ~DatalogProgram(){}
 
-    vector<predicate> Schemes;
-    vector<predicate> Facts;
-    vector<predicate> Queries;
-    vector<rule> Rules;
+    vector<Predicate> Schemes;
+    vector<Predicate> Facts;
+    vector<Predicate> Queries;
+    vector<Rule> Rules;
 };
+
 
 #endif //CS236PROJECT2_DATALOGPARSER_DATALOGPROGRAM_H

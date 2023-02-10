@@ -12,11 +12,8 @@ using namespace std;
 class rule
 {
 public:
-    rule(){}
-    ~rule(){}
+
 
 };
-
-
 
 #endif //CS236PROJECT2_DATALOGPARSER_RULE_H

@@ -9,10 +9,16 @@
 // Write classes for Parameter, Predicate, Rule, and Datalog Program.
 // Add code to the parser to create Parameter, Predicate, and Rule objects while parsing, and construct a Datalog Program object that contains lists of Schemes, Facts, Rules, and Queries.
 
+// Do I need voids or return functions?
+// What should main look like?
+
 #pragma once
 
 #include "token.h"
 #include "scanner.h"
+#include "parameter.h"
+#include "predicate.h"
+#include "datalogProgram.h"
 #include <vector>
 #include <iostream>
 
@@ -20,9 +26,23 @@ class Parser {
 private:
     vector<Token> tokens;
 public:
-    Parser(const vector<Token>& tokens) : tokens(tokens) { }
+    datalogProgram datalogProgram () {
 
+    }
 
+    string toString() const {
+        stringstream output;
+        output << "Here's a token" << endl;
+        return output.str();
+    }
+
+    Parser(const vector<Token>& tokens) : tokens(tokens) {
+        if(tokenType() == COMMENT) {
+            //remove it
+        }
+    }
+
+    TokenType tokenType() const { // Returns the type of the current Token
         return tokens.at(0).getType();
     };
 
@@ -38,22 +58,12 @@ public:
 
     int c = 0;
     void match(TokenType t) {
-        cout << "match: " << t << endl; // This is a debug print, remove it later
+        // cout << "match: " << t << endl; // This is a debug print, remove it later
         if (tokens.at(c).getType() == t) {
             advanceToken();
         }
-        else throwError();
-    }
-
-    //// ID         ----------------------------------------------------------------------------------
-    //// idList  	-> 	COMMA ID idList | lambda
-    void idList() {
-        if (tokenType() == COMMA) {
-            match(COMMA);
-            match(ID);
-            idList();
-        } else {
-            // lambda
+        else {
+            throwError();
         }
     }
 
@@ -66,6 +76,9 @@ public:
             match(ID);
             idList();
             match(RIGHT_PAREN);
+        }
+        else {
+            throwError();
         }
     }
 
@@ -85,7 +98,7 @@ public:
     //// RULE     ----------------------------------------------------------------------------------
     //// rule    	->	headPredicate COLON_DASH predicate predicateList PERIOD
     void rule() {
-        if (tokenType() == headPredicate()) {
+        if (tokenType() == ID) {
             headPredicate();
             match(COLON_DASH);
             predicate();
@@ -96,22 +109,28 @@ public:
 
     //// QUERY     ----------------------------------------------------------------------------------
     //// query	        ->      predicate Q_MARK
-//    void query() {
-//        if (tokenType() == predicate()) {
-//            predicate();
-//            match(Q_MARK);
-//        }
-//    }
+    void query() {
+        if (tokenType() == ID) {
+            predicate();
+            match(Q_MARK);
+        }
+        else {
+            throwError();
+        }
+    }
 
     //// headPredicate     ----------------------------------------------------------------------------------
     //// headPredicate	->	ID LEFT_PAREN ID idList RIGHT_PAREN
     void headPredicate() {
-        if (tokenType() == ID) {
+        if (TokenType() == ID) {
             match(ID);
             match(LEFT_PAREN);
             match(ID);
             idList();
             match(RIGHT_PAREN);
+        }
+        else {
+            throwError();
         }
     }
 
@@ -123,13 +142,17 @@ public:
             match(LEFT_PAREN);
             parameter();
             parameterList();
+//            vector;
             match(RIGHT_PAREN);
+        }
+        else {
+            throwError();
         }
     }
 
     //// predicateList     ----------------------------------------------------------------------------------
     //// predicateList	->	COMMA predicate predicateList | lambda
-    void predicateList() {
+    vector<parameter> predicateList() {
         if (tokenType() == COMMA) {
             match(COMMA);
             predicate();
@@ -137,11 +160,12 @@ public:
         } else {
             // lambda
         }
+        return {};
     }
 
     //// parameterList     ----------------------------------------------------------------------------------
     //// parameterList	-> 	COMMA parameter parameterList | lambda
-    void parameterList() {
+    vector<parameter> parameterList() {
         if (tokenType() == COMMA) {
             match(COMMA);
             parameter();
@@ -149,26 +173,45 @@ public:
         } else {
             // lambda
         }
+        return {};
     }
 
     //// stringList     ----------------------------------------------------------------------------------
     //// stringList	-> 	COMMA STRING stringList | lambda
-    void stringList() {
+    vector<parameter> stringList() {
         if (tokenType() == COMMA) {
             match(COMMA);
             match(STRING);
             stringList();
         } else {
+        // lambda
+    }
+    return {};
+}
+
+    //// ID         ----------------------------------------------------------------------------------
+    //// idList  	-> 	COMMA ID idList | lambda
+    vector<parameter> idList() {
+        if (tokenType() == COMMA) {
+            match(COMMA);
+            match(ID);
+            idList();
+        } else {
             // lambda
         }
+        return {};
     }
 
     //// parameter     ----------------------------------------------------------------------------------
     //// parameter	->	STRING | ID
-    void parameter() {
+    parameter parameter() {
         if (tokenType() == STRING) {
             match(STRING);
             match(ID);
         }
+        else {
+            throwError();
+        }
+        return {};
     }
 };

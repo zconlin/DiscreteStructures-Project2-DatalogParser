@@ -5,11 +5,15 @@
 #ifndef CS236PROJECT2_DATALOGPARSER_PARAMETER_H
 #define CS236PROJECT2_DATALOGPARSER_PARAMETER_H
 
+#include <string>
+
+using namespace std;
+
 class parameter
 {
 public:
-    parameter(){}
-    ~parameter(){}
+    string value;
+    bool isID;
 };
 
 #endif //CS236PROJECT2_DATALOGPARSER_PARAMETER_H

@@ -14,7 +14,15 @@ using namespace std;
 class predicate
 {
 public:
+    predicate(string name) {
+        string thisName = name;
 
+//        addParameter(parameter p);
+//            items.push_back(p);
+    }
+private:
+    string name;
+    vector<parameter> items;
 };
 
-#endif /* PREDICATE_H_ */
+#endif /* CS236PROJECT2_DATALOGPARSER_PREDICATE_H_ */

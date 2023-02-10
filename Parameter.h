@@ -9,9 +9,11 @@
 
 using namespace std;
 
-class parameter
+class Parameter
 {
 public:
+    Parameter(string value, bool isID): value(value), isID(isID){}
+
     string value;
     bool isID;
 };

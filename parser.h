@@ -9,14 +9,13 @@
 // Write classes for Parameter, Predicate, Rule, and Datalog Program.
 // Add code to the parser to create Parameter, Predicate, and Rule objects while parsing, and construct a Datalog Program object that contains lists of Schemes, Facts, Rules, and Queries.
 
-// Do I need voids or return functions?
 // What should main look like?
 
 #pragma once
 
 #include "token.h"
 #include "scanner.h"
-#include "parameter.h"
+#include "Parameter.h"
 #include "predicate.h"
 #include "datalogProgram.h"
 #include <vector>
@@ -46,14 +45,16 @@ public:
         return tokens.at(0).getType();
     };
 
+    string tokenString() {
+        return tokens.at(0).getValue();
+    }
+
     void advanceToken() { // Moves to the next Token
         tokens.erase(tokens.begin());
     }
 
     void throwError() { // Is called when the Parser finds an error
-        // This is not complete
-        cout << "Error" << endl;
-
+        throw "Error";
     }
 
     int c = 0;
@@ -69,7 +70,7 @@ public:
 
     //// SCHEME     ----------------------------------------------------------------------------------
     //// scheme   	-> 	ID LEFT_PAREN ID idList RIGHT_PAREN
-    void scheme() {
+     scheme() {
         if (tokenType() == ID) {
             match(ID);
             match(LEFT_PAREN);
@@ -135,7 +136,7 @@ public:
     }
 
     //// predicate     ----------------------------------------------------------------------------------
-    //// predicate	->	ID LEFT_PAREN parameter parameterList RIGHT_PAREN
+    //// predicate	->	ID LEFT_PAREN Parameter parameterList RIGHT_PAREN
     void predicate() {
         if (tokenType() == ID) {
             match(ID);
@@ -152,7 +153,7 @@ public:
 
     //// predicateList     ----------------------------------------------------------------------------------
     //// predicateList	->	COMMA predicate predicateList | lambda
-    vector<parameter> predicateList() {
+    vector<Parameter> predicateList() {
         if (tokenType() == COMMA) {
             match(COMMA);
             predicate();
@@ -164,8 +165,8 @@ public:
     }
 
     //// parameterList     ----------------------------------------------------------------------------------
-    //// parameterList	-> 	COMMA parameter parameterList | lambda
-    vector<parameter> parameterList() {
+    //// parameterList	-> 	COMMA Parameter parameterList | lambda
+    vector<Parameter> parameterList() {
         if (tokenType() == COMMA) {
             match(COMMA);
             parameter();
@@ -178,7 +179,7 @@ public:
 
     //// stringList     ----------------------------------------------------------------------------------
     //// stringList	-> 	COMMA STRING stringList | lambda
-    vector<parameter> stringList() {
+    vector<Parameter> stringList() {
         if (tokenType() == COMMA) {
             match(COMMA);
             match(STRING);
@@ -191,7 +192,7 @@ public:
 
     //// ID         ----------------------------------------------------------------------------------
     //// idList  	-> 	COMMA ID idList | lambda
-    vector<parameter> idList() {
+    vector<Parameter> idList() {
         if (tokenType() == COMMA) {
             match(COMMA);
             match(ID);
@@ -202,16 +203,21 @@ public:
         return {};
     }
 
-    //// parameter     ----------------------------------------------------------------------------------
-    //// parameter	->	STRING | ID
-    parameter parameter() {
+    //// Parameter     ----------------------------------------------------------------------------------
+    //// Parameter	->	STRING | ID
+    Parameter parameter() {
         if (tokenType() == STRING) {
             match(STRING);
+            tokenString();
+            return Parameter(tokenString(),false);
+        }
+        else if (tokenType() == ID) {
             match(ID);
+            return Parameter(tokenString(),true);
         }
         else {
             throwError();
         }
-        return {};
+        return Parameter("", false);
     }
 };

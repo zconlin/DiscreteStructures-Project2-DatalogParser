@@ -80,6 +80,10 @@ private:
 public:
 	Token(TokenType type, string value, int line) : type(type), value(value), line(line) {}
 
+    string getValue() {
+        return value;
+    }
+
 	string toString() const {
 	stringstream out;
 			out << "(" << typeName(type) << "," << "\"" << value << "\"" << "," << line << ")";

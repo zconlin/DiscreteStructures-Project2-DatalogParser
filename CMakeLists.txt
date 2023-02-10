@@ -3,4 +3,4 @@ project(CS236Project2-DatalogParser)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(CS236Project2-DatalogParser main.cpp datalogProgram.h rule.h predicate.h parameter.h)
+add_executable(CS236Project2-DatalogParser main.cpp datalogProgram.h rule.h predicate.h Parameter.h)

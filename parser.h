@@ -90,9 +90,11 @@ public:
             match(ID);
             match(LEFT_PAREN);
             match(STRING);
+            // string value to string vector
             stringList();
             match(RIGHT_PAREN);
             match(PERIOD);
+            // push to datalogProgram fact vector
         }
     }
 

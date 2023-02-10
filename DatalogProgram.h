@@ -22,5 +22,4 @@ public:
     vector<Rule> Rules;
 };
 
-
 #endif //CS236PROJECT2_DATALOGPARSER_DATALOGPROGRAM_H

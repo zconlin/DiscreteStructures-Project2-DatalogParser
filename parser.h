@@ -90,7 +90,7 @@ public:
             match(ID);
             match(LEFT_PAREN);
             match(STRING);
-            // string value to string vector
+            // string value to string vector? Not quite but close
             stringList();
             match(RIGHT_PAREN);
             match(PERIOD);
@@ -125,13 +125,14 @@ public:
 
     //// headPredicate     ----------------------------------------------------------------------------------
     //// headPredicate	->	ID LEFT_PAREN ID idList RIGHT_PAREN
-    void headPredicate() {
+    Predicate headPredicate() {
         if (TokenType() == ID) {
             match(ID);
             match(LEFT_PAREN);
             match(ID);
             idList();
             match(RIGHT_PAREN);
+            return Predicate(tokenString());
         }
         else {
             throwError();

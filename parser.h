@@ -57,7 +57,6 @@ public:
 
     int c = 0;
     void match(TokenType t) {
-        // cout << "match: " << t << endl; // This is a debug print, remove it later
         if (tokens.at(c).getType() == t) {
             advanceToken();
         }

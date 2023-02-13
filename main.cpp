@@ -24,11 +24,11 @@ int main (int argc, char* argv[]) {
     Parser p = Parser(t);
 
     try {
+        p.datalogProgram();
         cout << "Success!" << endl;
         for (Token token : t) {
             cout << p.toString();
         }
-//        DatalogProgram DatalogProgram();
     }
     catch (string error) {
         cout << "Failure";

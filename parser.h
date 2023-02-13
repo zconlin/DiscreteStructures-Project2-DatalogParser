@@ -52,12 +52,14 @@ public:
     }
 
     void throwError() { // Is called when the Parser finds an error
-        throw "Error";
+//        throw "Error";
+cout << "Error"; //debug
     }
 
     int c = 0;
     void match(TokenType t) {
         if (tokens.at(c).getType() == t) {
+            cout << tokens.at(c).getValue(); //debug
             advanceToken();
         }
         else {
@@ -97,13 +99,12 @@ public:
     }
 
     //// schemeList	->	scheme schemeList | lambda
-    void schemeList() { //the tokenType == scheme is obviously not right, but how do I
-                        // match it if it isn't a token?
-//        if(tokenType() == scheme()) {
+    void schemeList() {
+//        try {
 //            scheme();
 //            schemeList();
-//        } else {
-//        // lambda
+//        } catch(string lambda) {
+//            advanceToken(); // lambda
 //        }
     }
 

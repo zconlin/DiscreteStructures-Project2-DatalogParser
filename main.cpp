@@ -30,9 +30,9 @@ int main (int argc, char* argv[]) {
             cout << p.toString();
         }
     }
-    catch (string error) {
-        cout << "Failure";
-        return 0;
+    catch (Token error) {
+        cout << "Failure!" << endl;
+        error.toString();
     }
 
     return 0;

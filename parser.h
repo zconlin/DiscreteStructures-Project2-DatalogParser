@@ -53,7 +53,7 @@ public:
 
     void throwError() { // Is called when the Parser finds an error
 //        throw "Error";
-cout << "Error"; //debug
+//cout << "Error"; //debug
     }
 
     int c = 0;
@@ -74,7 +74,7 @@ cout << "Error"; //debug
     ////		        QUERIES COLON query queryList
     ////    			EOF
     DatalogProgram datalogProgram () {
-        if (tokenType() == SCHEMES) {
+//        if (tokenType() == SCHEMES) {
             match(SCHEMES);
             match(COLON);
             scheme();
@@ -91,31 +91,31 @@ cout << "Error"; //debug
             queryList();
             match(END);
             return datalogProgram();
-        }
-        else {
-            throwError();
-//            return {};
-        }
+//        }
+//        else {
+//            throwError();
+////            return {};
+//        }
     }
 
     //// schemeList	->	scheme schemeList | lambda
     void schemeList() {
-//        try {
-//            scheme();
-//            schemeList();
-//        } catch(string lambda) {
-//            advanceToken(); // lambda
-//        }
+        if(tokenType() == ID) {
+            scheme();
+            schemeList();
+        } else {
+            // lambda
+        }
     }
 
     //// factList	->	fact factList | lambda
     void factList() {
-//        if(tokenType() == fact()) {
-//            fact();
-//            factList();
-//        } else {
-//        // lambda
-//        }
+        if(tokenType() == STRING) {
+            fact();
+            factList();
+        } else {
+        // lambda
+        }
     }
 
     //// ruleList	->	rule ruleList | lambda

@@ -15,7 +15,6 @@ class Predicate
 {
 public:
     Predicate(string value):value(value) {}
-//        string value;
     vector<Parameter> parameterList;
 
     void addParameter(Parameter param) {

@@ -8,6 +8,7 @@
 #include <vector>
 #include <set>
 #include "Rule.h"
+#include "Predicate.h"
 
 using namespace std;
 
@@ -25,10 +26,20 @@ public:
     set<Parameter> Domain;
 
     string toString() {
-        string output;
-        output = "DatalogProgram toString";
+//        Predicate::toString();
+//        Rule::toString();
 
-        return output;
+//        string schemesString;
+//        string factsString;
+//        string queriesString;
+//        string rulesString;
+//        string domainString;
+//        string output;
+
+//        schemesString = "Schemes(" + Schemes.size() + "):" << endl;
+//        factsString = "Facts(" << Facts.size() << "):" << endl;
+
+//        return output;
     }
 };
 

@@ -104,7 +104,7 @@ public:
 
     //// factList	->	fact factList | lambda
     void factList() {
-        if(tokenType() == STRING) {
+        if(tokenType() == ID) {
             fact();
             factList();
         } else {
@@ -124,7 +124,7 @@ public:
 
     //// queryList	->	query queryList | lambda
     void queryList() {
-        if(tokenType() == STRING) {
+        if(tokenType() == ID) {
             query();
             queryList();
         } else {

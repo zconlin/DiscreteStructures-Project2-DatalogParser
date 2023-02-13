@@ -6,6 +6,7 @@
 #define CS236PROJECT2_DATALOGPARSER_DATALOGPROGRAM_H
 
 #include <vector>
+#include <set>
 #include "Rule.h"
 
 using namespace std;
@@ -21,6 +22,7 @@ public:
     vector<Predicate> Facts;
     vector<Predicate> Queries;
     vector<Rule> Rules;
+    set<Parameter> Domain;
 
     string toString() {
         string output;

@@ -142,9 +142,6 @@ public:
             idList();
             match(RIGHT_PAREN);
         }
-        else {
-            throwError();
-        }
     }
 
     //// FACT     ----------------------------------------------------------------------------------
@@ -182,9 +179,6 @@ public:
             match(Q_MARK);
             return Predicate(tokenString());
         }
-        else {
-            throwError();
-        }
     }
 
     //// headPredicate     ----------------------------------------------------------------------------------
@@ -197,9 +191,6 @@ public:
             idList();
             match(RIGHT_PAREN);
             return Predicate(tokenString());
-        }
-        else {
-            throwError();
         }
     }
 
@@ -214,9 +205,6 @@ public:
 //            vector;
             match(RIGHT_PAREN);
             return Predicate(tokenString());
-        }
-        else {
-            throwError();
         }
     }
 
@@ -286,9 +274,6 @@ public:
         else if (tokenType() == ID) {
             match(ID);
             return Parameter(tokenString(),true);
-        }
-        else {
-            throwError();
         }
         return Parameter("", false);
     }

@@ -2,6 +2,10 @@
 // Created by zconlin on 1/27/2023.
 //
 
+// Ask the TAs:
+// What should I be setting up in main?
+// DatalogProgram - help I dunno even what to do
+
 #include "scanner.h"
 #include "token.h"
 #include "parser.h"
@@ -17,9 +21,19 @@ int main (int argc, char* argv[]) {
     Scanner s = Scanner(content);
     vector<Token> t = s.scanLoop();
 
+    Parser p = Parser(t);
+
     for (Token token : t) {
-//        cout << parser.toString() << endl;
+        cout << p.toString() << endl;
     }
+    try {
+//        DatalogProgram DatalogProgram();
+    }
+    catch (string error) {
+        cout << "Failure";
+        return 0;
+    }
+    cout << "Success!";
 
     return 0;
 }

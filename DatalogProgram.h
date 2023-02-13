@@ -13,13 +13,25 @@ using namespace std;
 class DatalogProgram
 {
 public:
-    DatalogProgram(){}
+    DatalogProgram(vector<Predicate> Schemes, vector<Predicate> Facts, vector<Predicate> Queries, vector<Rule> Rules):
+    Schemes(Schemes), Facts(Facts), Queries(Queries), Rules(Rules) {}
     ~DatalogProgram(){}
 
     vector<Predicate> Schemes;
     vector<Predicate> Facts;
     vector<Predicate> Queries;
     vector<Rule> Rules;
+
+//    string toString() {
+//        string output;
+//        output = value + "(";
+//        for(int i = 0; i < parameterList.size()-1; i++) {
+//            output = output + parameterList[i].value + ",";
+//        }
+//        output += parameterList[parameterList.size()-1].value + ")";
+//
+//        return output;
+//    }
 };
 
 #endif //CS236PROJECT2_DATALOGPARSER_DATALOGPROGRAM_H

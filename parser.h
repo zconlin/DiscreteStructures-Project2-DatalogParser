@@ -74,7 +74,6 @@ public:
     ////		        QUERIES COLON query queryList
     ////    			EOF
     DatalogProgram datalogProgram () {
-//        if (tokenType() == SCHEMES) {
             match(SCHEMES);
             match(COLON);
             scheme();
@@ -91,11 +90,6 @@ public:
             queryList();
             match(END);
             return datalogProgram();
-//        }
-//        else {
-//            throwError();
-////            return {};
-//        }
     }
 
     //// schemeList	->	scheme schemeList | lambda
@@ -120,22 +114,22 @@ public:
 
     //// ruleList	->	rule ruleList | lambda
     void ruleList() {
-//        if(tokenType() == rule()) {
-//            rule();
-//            ruleList();
-//        } else {
-//        // lambda
-//        }
+        if(tokenType() == STRING) {
+            rule();
+            ruleList();
+        } else {
+        // lambda
+        }
     }
 
     //// queryList	->	query queryList | lambda
     void queryList() {
-//        if(tokenType() == query()) {
-//            query();
-//            queryList();
-//        } else {
-//        // lambda
-//        }
+        if(tokenType() == STRING) {
+            query();
+            queryList();
+        } else {
+        // lambda
+        }
     }
 
     //// SCHEME     ----------------------------------------------------------------------------------

@@ -23,14 +23,10 @@ public:
     vector<Rule> Rules;
 
     string toString() {
-//        string output;
-//        output = value + "(";
-//        for(int i = 0; i < parameterList.size()-1; i++) {
-//            output = output + parameterList[i].value + ",";
-//        }
-//        output += parameterList[parameterList.size()-1].value + ")";
-//
-//        return output;
+        string output;
+        output = "DatalogProgram toString";
+
+        return output;
     }
 };
 

@@ -25,19 +25,17 @@ class Parser {
 private:
     vector<Token> tokens;
 public:
-    DatalogProgram datalogProgram () {
-
-    }
-
-    string toString() const {
+    string toString() {
         stringstream output;
-        output << "Here's a token" << endl;
+        int numTokens;
+        output << tokenString() << " (" << numTokens << ") :" << endl;
+
         return output.str();
     }
 
     Parser(const vector<Token>& tokens) : tokens(tokens) {
         if(tokenType() == COMMENT) {
-            //remove it
+            advanceToken();
         }
     }
 
@@ -66,6 +64,78 @@ public:
         else {
             throwError();
         }
+    }
+
+    //// DatalogProgram     ----------------------------------------------------------------------------------
+    //// datalogProgram	->	SCHEMES COLON scheme schemeList
+    ////		        FACTS COLON factList
+    ////		        RULES COLON ruleList
+    ////		        QUERIES COLON query queryList
+    ////    			EOF
+    DatalogProgram datalogProgram () {
+        if (tokenType() == SCHEMES) {
+            match(SCHEMES);
+            match(COLON);
+            scheme();
+            schemeList();
+            match(FACTS);
+            match(COLON);
+            factList();
+            match(RULES);
+            match(COLON);
+            ruleList();
+            match(QUERIES);
+            match(COLON);
+            query();
+            queryList();
+            match(END);
+            return datalogProgram();
+        }
+        else {
+            throwError();
+//            return {};
+        }
+    }
+
+    //// schemeList	->	scheme schemeList | lambda
+    void schemeList() { //the tokenType == scheme is obviously not right, but how do I
+                        // match it if it isn't a token?
+//        if(tokenType() == scheme()) {
+//            scheme();
+//            schemeList();
+//        } else {
+//        // lambda
+//        }
+    }
+
+    //// factList	->	fact factList | lambda
+    void factList() {
+//        if(tokenType() == fact()) {
+//            fact();
+//            factList();
+//        } else {
+//        // lambda
+//        }
+    }
+
+    //// ruleList	->	rule ruleList | lambda
+    void ruleList() {
+//        if(tokenType() == rule()) {
+//            rule();
+//            ruleList();
+//        } else {
+//        // lambda
+//        }
+    }
+
+    //// queryList	->	query queryList | lambda
+    void queryList() {
+//        if(tokenType() == query()) {
+//            query();
+//            queryList();
+//        } else {
+//        // lambda
+//        }
     }
 
     //// SCHEME     ----------------------------------------------------------------------------------

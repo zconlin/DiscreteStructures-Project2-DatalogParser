@@ -22,7 +22,7 @@ public:
     vector<Predicate> Queries;
     vector<Rule> Rules;
 
-//    string toString() {
+    string toString() {
 //        string output;
 //        output = value + "(";
 //        for(int i = 0; i < parameterList.size()-1; i++) {
@@ -31,7 +31,7 @@ public:
 //        output += parameterList[parameterList.size()-1].value + ")";
 //
 //        return output;
-//    }
+    }
 };
 
 #endif //CS236PROJECT2_DATALOGPARSER_DATALOGPROGRAM_H

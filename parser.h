@@ -48,7 +48,9 @@ public:
     }
 
     void advanceToken() { // Moves to the next Token
-        tokens.erase(tokens.begin());
+        if(tokens.size() > 1) {
+            tokens.erase(tokens.begin());
+        }
     }
 
     void throwError() { // Is called when the Parser finds an error
@@ -64,9 +66,6 @@ public:
         if (tokens.at(c).getType() == t) {
             cout << tokens.at(c).getValue(); //debug
             advanceToken();
-        }
-        else {
-            throwError();
         }
     }
 
@@ -159,7 +158,7 @@ public:
             match(RIGHT_PAREN);
             match(PERIOD);
             // push to datalogProgram fact vector
-            DatalogProgram::Facts.push_back();
+            //DatalogProgram::Facts.push_back();
         }
     }
 

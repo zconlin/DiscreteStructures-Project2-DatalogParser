@@ -17,6 +17,7 @@ class DatalogProgram
 public:
     DatalogProgram(vector<Predicate> Schemes, vector<Predicate> Facts, vector<Predicate> Queries, vector<Rule> Rules, set<Predicate> Domain):
     Schemes(Schemes), Facts(Facts), Queries(Queries), Rules(Rules), Domain(Domain) {}
+    DatalogProgram(){}
     ~DatalogProgram(){}
 
     vector<Predicate> Schemes;

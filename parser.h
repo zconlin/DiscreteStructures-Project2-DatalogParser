@@ -24,6 +24,8 @@
 class Parser {
 private:
     vector<Token> tokens;
+    DatalogProgram dp;
+
 public:
     string toString() {
         stringstream output;
@@ -158,7 +160,8 @@ public:
             match(RIGHT_PAREN);
             match(PERIOD);
             // push to datalogProgram fact vector
-            //DatalogProgram::Facts.push_back();
+//            dp.Facts.push_back();
+//            Predicate().addParameter();
         }
     }
 

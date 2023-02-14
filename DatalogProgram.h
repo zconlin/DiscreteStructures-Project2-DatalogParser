@@ -27,6 +27,7 @@ public:
     set<string> Domain;
 
     string toString() {
+        return "";
 //        {
 //            string output;
 //            output = "Schemes(" + intToString(Schemes.size()) + "):\n";

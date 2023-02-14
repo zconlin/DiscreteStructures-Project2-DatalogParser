@@ -29,7 +29,7 @@ private:
 public:
     string toString() {
         stringstream output;
-        int numTokens;
+        int numTokens = 0;
         output << tokenString() << " (" << numTokens << ") :" << endl;
 
         return output.str();
@@ -93,7 +93,7 @@ public:
             query();
             queryList();
             match(END);
-            return datalogProgram();
+            return {}; //TODO return real datalog program
     }
 
     //// schemeList	->	scheme schemeList | lambda
@@ -185,6 +185,7 @@ public:
             match(Q_MARK);
             return Predicate(tokenString());
         }
+        return {};
     }
 
     //// headPredicate     ----------------------------------------------------------------------------------
@@ -213,6 +214,7 @@ public:
             match(RIGHT_PAREN);
             return Predicate(tokenString());
         }
+        return {};
     }
 
     //// predicateList     ----------------------------------------------------------------------------------

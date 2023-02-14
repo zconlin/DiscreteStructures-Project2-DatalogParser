@@ -159,6 +159,7 @@ public:
             match(RIGHT_PAREN);
             match(PERIOD);
             // push to datalogProgram fact vector
+            DatalogProgram::Facts.push_back();
         }
     }
 

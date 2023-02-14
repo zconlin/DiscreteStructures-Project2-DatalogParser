@@ -15,7 +15,7 @@ using namespace std;
 class DatalogProgram
 {
 public:
-    DatalogProgram(vector<Predicate> Schemes, vector<Predicate> Facts, vector<Predicate> Queries, vector<Rule> Rules, set<Predicate> Domain):
+    DatalogProgram(vector<Predicate> Schemes, vector<Predicate> Facts, vector<Predicate> Queries, vector<Rule> Rules, set<string> Domain):
     Schemes(Schemes), Facts(Facts), Queries(Queries), Rules(Rules), Domain(Domain) {}
     DatalogProgram(){}
     ~DatalogProgram(){}
@@ -24,7 +24,7 @@ public:
     vector<Predicate> Facts;
     vector<Predicate> Queries;
     vector<Rule> Rules;
-    set<Predicate> Domain;
+    set<string> Domain;
 
     string toString() {
 //        {

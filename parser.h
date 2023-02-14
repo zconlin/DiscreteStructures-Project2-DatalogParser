@@ -58,6 +58,9 @@ public:
 
     int c = 0;
     void match(TokenType t) {
+        if (tokens.at(c).getType() == END) {
+
+        }
         if (tokens.at(c).getType() == t) {
             cout << tokens.at(c).getValue(); //debug
             advanceToken();
@@ -114,7 +117,7 @@ public:
 
     //// ruleList	->	rule ruleList | lambda
     void ruleList() {
-        if(tokenType() == STRING) {
+        if(tokenType() != QUERIES) {
             rule();
             ruleList();
         } else {
@@ -184,14 +187,15 @@ public:
     //// headPredicate     ----------------------------------------------------------------------------------
     //// headPredicate	->	ID LEFT_PAREN ID idList RIGHT_PAREN
     Predicate headPredicate() {
-        if (TokenType() == ID) {
+//        if (TokenType() == ID) {
             match(ID);
             match(LEFT_PAREN);
             match(ID);
             idList();
             match(RIGHT_PAREN);
             return Predicate(tokenString());
-        }
+//        }
+        return Predicate();
     }
 
     //// predicate     ----------------------------------------------------------------------------------

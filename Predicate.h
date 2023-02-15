@@ -14,22 +14,23 @@ using namespace std;
 class Predicate
 {
 public:
-    Predicate(string value):value(value) {}
+    Predicate(string value, vector<Parameter> parameterList): name(value), parameterList(parameterList) {}
     Predicate() {}
 
     vector<Parameter> parameterList;
+    string name;
 
-    void addParameter(Parameter param) {
-        parameterList.push_back(param);
-    }
-
-    void addParameter(vector<Parameter> params) {
-        parameterList.insert(parameterList.end(),params.begin(), params.end());
-    }
+//    void addParameter(Parameter param) {
+//        parameterList.push_back(param);
+//    }
+//
+//    void addParameter(vector<Parameter> params) {
+//        parameterList.insert(parameterList.end(),params.begin(), params.end());
+//    }
 
     string toString() {
         string output;
-        output = value + "(";
+        output = name + "(";
         for(int i = 0; i < parameterList.size()-1; i++) {
             output = output + parameterList[i].value + ",";
         }
@@ -38,9 +39,6 @@ public:
         return output;
     }
 
-private:
-    string value;
-    vector<Parameter> items;
 };
 
 #endif /* CS236PROJECT2_DATALOGPARSER_PREDICATE_H_ */

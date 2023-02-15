@@ -303,7 +303,7 @@ Syntax Errors
 <p>
 If the parse is unsuccessful,
 output 'Failure!' followed by the offending token.
-Output the type, value, and line number of the token
+Output the type, name, and line number of the token
 surrounded by parentheses and indented by 2 spaces
 on a new line of output.
 Note that the parser stops after encountering
@@ -428,7 +428,7 @@ Throw an exception when the parser detects a syntax error.
 Catch the exception at the top level of the parser
 to report either success or failure.
 (Don't return a boolean from each parsing routine to indicate
-a syntax error because then each return value must be checked
+a syntax error because then each return name must be checked
 resulting in more complicated code.)
 </p>
 

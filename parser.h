@@ -27,16 +27,16 @@ private:
     DatalogProgram dp;
 
 public:
-    string toString() {
-        stringstream output;
-        int numTokens;
-        output << tokenString() << " (" << numTokens << ") :" << endl;
-
-        return output.str();
-    }
+//    string toString() {
+//        stringstream output;
+//        int numTokens;
+//        output << tokenString() << " (" << numTokens << ") :" << endl;
+//
+//        return output.str();
+//    }
 
     Parser(const vector<Token>& tokens) : tokens(tokens) {
-        if(tokenType() == COMMENT) {
+        if(tokenType() == COMMENT) { //// Call a parse function? Why can't this work?
             advanceToken();
         }
     }
@@ -55,19 +55,24 @@ public:
         }
     }
 
-    void throwError() { // Is called when the Parser finds an error
-//        throw "Error";
-//cout << "Error"; //debug
+    void throwError(Token t) { // Is called when the Parser finds an error
+        throw t;
+        //cout << "Error"; //debug
     }
 
-    int c = 0;
-    void match(TokenType t) {
-        if (tokens.at(c).getType() == END) {
-
+    Token match(TokenType t) {
+        Token token = tokens.at(0);
+        if (tokens.at(0).getType() == END) {
+            return token;
         }
-        if (tokens.at(c).getType() == t) {
-            cout << tokens.at(c).getValue(); //debug
+        if (tokens.at(0).getType() == t) {
+            cout << tokens.at(0).getValue(); //debug
             advanceToken();
+            return token;
+        }
+        else {
+            throwError(token);
+            return {};
         }
     }
 
@@ -77,152 +82,177 @@ public:
     ////		        RULES COLON ruleList
     ////		        QUERIES COLON query queryList
     ////    			EOF
-    DatalogProgram datalogProgram () {
+    DatalogProgram datalogProgram() {
             match(SCHEMES);
             match(COLON);
-            scheme();
-            schemeList();
+            Predicate s = scheme();
+            vector<Predicate> schemes = schemeList();
+            schemes.insert(schemes.begin(),s);
             match(FACTS);
             match(COLON);
-            factList();
+            vector<Predicate> facts = factList();
+            facts.insert(facts.begin(),s); //// Do I do s here or is it something else? Does it have to do with my private variable dp?
             match(RULES);
             match(COLON);
-            ruleList();
+            vector<Predicate> rules = ruleList();
+            rules.insert(rules.begin(),s); //// Do I do s here or is it something else? Does it have to do with my private variable dp?
             match(QUERIES);
             match(COLON);
-            query();
-            queryList();
+            Predicate q = query();
+            vector<Predicate> queries = queryList();
+            queries.insert(queries.begin(),q);
             match(END);
-            return datalogProgram();
+            return datalogProgram(schemes, facts, queries, rules); //// ?
     }
 
     //// schemeList	->	scheme schemeList | lambda
-    void schemeList() {
+    vector<Predicate> schemeList() {
         if(tokenType() == ID) {
-            scheme();
-            schemeList();
+            Predicate p = scheme();
+            vector<Predicate> schemes = schemeList();
+            schemes.insert(schemes.begin(),p);
+            return schemes;
         } else {
             // lambda
         }
+        return {};
     }
 
     //// factList	->	fact factList | lambda
-    void factList() {
+    vector<Predicate> factList() {
         if(tokenType() == ID) {
-            fact();
-            factList();
+            Predicate p = fact();
+            vector<Predicate> facts = factList();
+            facts.insert(facts.begin(),p);
+            return facts;
         } else {
         // lambda
         }
+        return {};
     }
 
     //// ruleList	->	rule ruleList | lambda
-    void ruleList() {
+    vector<Predicate> ruleList() {
         if(tokenType() != QUERIES) {
-            rule();
-            ruleList();
+//            Rule r = rule();
+//            vector<Predicate> rules = ruleList();
+//            rules.insert(rules.begin(),r);
+//            return rules;
         } else {
         // lambda
         }
+        return {};
     }
 
     //// queryList	->	query queryList | lambda
-    void queryList() {
+    vector<Predicate> queryList() {
         if(tokenType() == ID) {
-            query();
-            queryList();
+            Predicate p = query();
+            vector<Predicate> query = queryList();
+            query.insert(query.begin(),p);
+            return query;
         } else {
         // lambda
         }
+        return {};
     }
 
     //// SCHEME     ----------------------------------------------------------------------------------
     //// scheme   	-> 	ID LEFT_PAREN ID idList RIGHT_PAREN
-     void scheme() {
+     Predicate scheme() {
         if (tokenType() == ID) {
-            match(ID);
+            Token schemeName = match(ID);
             match(LEFT_PAREN);
-            match(ID);
-            idList();
+            Token firstParam = match(ID);
+            Parameter p = Parameter(firstParam.getValue(), true);
+            vector<Parameter> ids = idList();
+            ids.insert(ids.begin(),p);
             match(RIGHT_PAREN);
+            return Predicate(schemeName.getValue(),ids);
         }
+        return {};
     }
 
     //// FACT     ----------------------------------------------------------------------------------
     //// fact    	->	ID LEFT_PAREN STRING stringList RIGHT_PAREN PERIOD
-    void fact() {
+    Predicate fact() {
         if (tokenType() == ID) {
-            match(ID);
+            Token schemeName = match(ID);
             match(LEFT_PAREN);
-            match(STRING);
-            // string value to string vector? Not quite but close
-            stringList();
+            Token stringContents = match(STRING);
+            Parameter p = Parameter(stringContents.getValue(), false);
+            vector<Parameter> strings = stringList();
+            strings.insert(strings.begin(),p);
             match(RIGHT_PAREN);
             match(PERIOD);
-            // push to datalogProgram fact vector
-//            dp.Facts.push_back();
-//            Predicate().addParameter();
+            return Predicate(schemeName.getValue(),strings);
         }
+        return {};
     }
 
     //// RULE     ----------------------------------------------------------------------------------
     //// rule    	->	headPredicate COLON_DASH predicate predicateList PERIOD
-    void rule() {
+    Rule rule() {
         if (tokenType() == ID) {
-            headPredicate();
+            Predicate ruleName = headPredicate();
             match(COLON_DASH);
-            predicate();
-            predicateList();
+            Predicate firstPredicate = predicate();
+            vector<Predicate> listofPredicates = predicateList();
+            listofPredicates.insert(listofPredicates.begin(),firstPredicate);
             match(PERIOD);
+            return Rule(ruleName, listofPredicates);
         }
+        return {};
     }
 
     //// QUERY     ----------------------------------------------------------------------------------
     //// query	        ->      predicate Q_MARK
     Predicate query() {
         if (tokenType() == ID) {
-            predicate();
+            Predicate queryName = predicate();
             match(Q_MARK);
-            return Predicate(tokenString());
+            return queryName;
         }
     }
 
     //// headPredicate     ----------------------------------------------------------------------------------
     //// headPredicate	->	ID LEFT_PAREN ID idList RIGHT_PAREN
     Predicate headPredicate() {
-//        if (TokenType() == ID) {
-            match(ID);
-            match(LEFT_PAREN);
-            match(ID);
-            idList();
-            match(RIGHT_PAREN);
-            return Predicate(tokenString());
-//        }
-        return Predicate();
+        Token ruleName = match(ID);
+        match(LEFT_PAREN);
+        match(ID);
+        Parameter p = Parameter(ruleName.getValue(), true);
+        vector<Parameter> ids = idList();
+        ids.insert(ids.begin(),p);
+        match(RIGHT_PAREN);
+        return Predicate(ruleName.getValue(),ids);
     }
 
     //// predicate     ----------------------------------------------------------------------------------
     //// predicate	->	ID LEFT_PAREN Parameter parameterList RIGHT_PAREN
     Predicate predicate() {
         if (tokenType() == ID) {
-            match(ID);
+            Token idName = match(ID);
             match(LEFT_PAREN);
             parameter();
-            parameterList();
-//            vector;
+            Parameter p = Parameter(idName.getValue(), true);
+            vector<Parameter> parameters = parameterList();
+            parameters.insert(parameters.begin(),p);
             match(RIGHT_PAREN);
-            return Predicate(tokenString());
+            return Predicate(idName.getValue(),parameters);
         }
+        return {};
     }
 
     //// predicateList     ----------------------------------------------------------------------------------
     //// predicateList	->	COMMA predicate predicateList | lambda
-    vector<Parameter> predicateList() {
+    vector<Predicate> predicateList() {
         if (tokenType() == COMMA) {
             match(COMMA);
-            predicate();
-            predicateList();
-            return vector<Parameter>();
+            Predicate p = predicate();
+            vector<Predicate> predicates = predicateList();
+            predicates.insert(predicates.begin(),p);
+            return predicates;
         } else {
             // lambda
         }
@@ -230,13 +260,14 @@ public:
     }
 
     //// parameterList     ----------------------------------------------------------------------------------
-    //// parameterList	-> 	COMMA Parameter parameterList | lambda
+    //// parameterList	-> 	COMMA parameter parameterList | lambda
     vector<Parameter> parameterList() {
         if (tokenType() == COMMA) {
             match(COMMA);
-            parameter();
-            parameterList();
-            return vector<Parameter>();
+            Parameter p = parameter();
+            vector<Parameter> parameters = parameterList();
+            parameters.insert(parameters.begin(),p);
+            return parameters;
         } else {
             // lambda
         }
@@ -248,9 +279,11 @@ public:
     vector<Parameter> stringList() {
         if (tokenType() == COMMA) {
             match(COMMA);
-            match(STRING);
-            stringList();
-            return vector<Parameter>();
+            Token firstString = match(STRING);
+            vector<Parameter> strings = stringList();
+            Parameter p = Parameter(firstString.getValue(), false);
+            strings.insert(strings.begin(),p);
+            return strings;
         } else {
         // lambda
     }
@@ -262,9 +295,11 @@ public:
     vector<Parameter> idList() {
         if (tokenType() == COMMA) {
             match(COMMA);
-            match(ID);
-            idList();
-        return vector<Parameter>();
+            Token idName = match(ID);
+            vector<Parameter> ids = idList();
+            Parameter p = Parameter(idName.getValue(), true);
+            ids.insert(ids.begin(),p);
+        return ids;
         } else {
             // lambda
         }

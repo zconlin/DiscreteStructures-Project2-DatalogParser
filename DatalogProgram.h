@@ -15,8 +15,17 @@ using namespace std;
 class DatalogProgram
 {
 public:
-    DatalogProgram(vector<Predicate> Schemes, vector<Predicate> Facts, vector<Predicate> Queries, vector<Rule> Rules, set<Predicate> Domain):
-    Schemes(Schemes), Facts(Facts), Queries(Queries), Rules(Rules), Domain(Domain) {}
+    DatalogProgram(vector<Predicate> Schemes, vector<Predicate> Facts, vector<Predicate> Queries, vector<Rule> Rules):
+    Schemes(Schemes), Facts(Facts), Queries(Queries), Rules(Rules) {
+        Domain = set<string>();
+        for (const Predicate &predicate : Facts) {
+            for (const Parameter &parameter : predicate.parameterList) {
+                if (!parameter.isID) {
+                    Domain.insert(parameter.value);
+                }
+            }
+        }
+    }
     DatalogProgram(){}
     ~DatalogProgram(){}
 
@@ -24,7 +33,10 @@ public:
     vector<Predicate> Facts;
     vector<Predicate> Queries;
     vector<Rule> Rules;
-    set<Predicate> Domain;
+    set<string> Domain;
+
+
+
 
     string toString() {
 //        {

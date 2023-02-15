@@ -12,7 +12,8 @@ using namespace std;
 class Rule
 {
 public:
-    Rule(vector<Predicate> predicateList, Predicate headPredicate) : predicateList(predicateList), headPredicate(headPredicate) {}
+    Rule(Predicate headPredicate, vector<Predicate> predicateList)
+            : predicateList(predicateList), headPredicate(headPredicate) {}
     Rule(){}
 
     Predicate headPredicate;

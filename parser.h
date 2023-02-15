@@ -36,7 +36,7 @@ public:
 //    }
 
     Parser(const vector<Token>& tokens) : tokens(tokens) {
-        if(tokenType() == COMMENT) { //// Call a parse function? Why can't this work?
+        if(tokenType() == COMMENT) { //// Call a parse function? Why can't this work?   //You're going to want the parse function to return a DatalogProgram object. You can't return that in a constructor like this.
             advanceToken();
         }
     }
@@ -45,9 +45,10 @@ public:
         return tokens.at(0).getType();
     };
 
-    string tokenString() {
-        return tokens.at(0).getValue();
-    }
+//// I believe we made this obsolete with how we coded our stuff later on
+//    string tokenString() {
+//        return tokens.at(0).getValue();
+//    }
 
     void advanceToken() { // Moves to the next Token
         if(tokens.size() > 1) {

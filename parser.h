@@ -35,10 +35,18 @@ public:
 //        return output.str();
 //    }
 
-    Parser(const vector<Token>& tokens) : tokens(tokens) {
-        if(tokenType() == COMMENT) { //// Call a parse function? Why can't this work?
+    DatalogProgram parseComment() {
+        if(tokenType() == COMMENT) {
             advanceToken();
         }
+        return DatalogProgram();
+};
+
+    Parser(const vector<Token>& tokens) : tokens(tokens) {
+//        if(tokenType() == COMMENT) {
+//            advanceToken();
+//        }
+        parseComment();
     }
 
     TokenType tokenType() const { // Returns the type of the current Token
@@ -57,7 +65,6 @@ public:
 
     void throwError(Token t) { // Is called when the Parser finds an error
         throw t;
-        //cout << "Error"; //debug
     }
 
     Token match(TokenType t) {
@@ -66,7 +73,7 @@ public:
             return token;
         }
         if (tokens.at(0).getType() == t) {
-            cout << tokens.at(0).getValue(); //debug
+//            cout << tokens.at(0).getValue(); //debug
             advanceToken();
             return token;
         }
@@ -91,12 +98,12 @@ public:
             match(FACTS);
             match(COLON);
             vector<Predicate> facts = factList();
-            facts.insert(facts.begin(),s); //// Do I do s here or is it something else?
+//            facts.insert(facts.begin(),s); //// Do I do s here or is it something else?
                                                      //// Does it have to do with my private DatalogProgram object dp?
             match(RULES);
             match(COLON);
-            vector<Predicate> rules = ruleList();
-            rules.insert(rules.begin(),s); //// Do I do s here or is it something else?
+            vector<Rule> rules = ruleList();
+//            rules.insert(rules.begin(),s); //// Do I do s here or is it something else?
                                                      //// Does it have to do with my private DatalogProgram object dp?
             match(QUERIES);
             match(COLON);
@@ -104,8 +111,7 @@ public:
             vector<Predicate> queries = queryList();
             queries.insert(queries.begin(),q);
             match(END);
-//            return datalogProgram(schemes, facts, queries, rules);
-            return datalogProgram(); //// How do I return what I need? It's unhappy about the version above
+            return DatalogProgram(schemes, facts, queries, rules);
     }
 
     //// schemeList	->	scheme schemeList | lambda
@@ -135,7 +141,7 @@ public:
     }
 
     //// ruleList	->	rule ruleList | lambda
-    vector<Predicate> ruleList() {
+    vector<Rule> ruleList() {
         if(tokenType() != QUERIES) {
 //            Rule r = rule();
 //            vector<Predicate> rules = ruleList();

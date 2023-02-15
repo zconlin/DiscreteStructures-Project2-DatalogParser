@@ -101,8 +101,8 @@ public:
             vector<Predicate> queries = queryList();
             queries.insert(queries.begin(),q);
             match(END);
-//            return datalogProgram(schemes, facts, queries, rules);
-            return datalogProgram(); //// How do I return what I need? It's unhappy about the version above
+            return DatalogProgram(schemes, facts, queries, rules);
+        //// How do I return what I need? It's unhappy about the version above
     }
 
     //// schemeList	->	scheme schemeList | lambda

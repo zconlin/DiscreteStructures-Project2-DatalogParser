@@ -91,18 +91,21 @@ public:
             match(FACTS);
             match(COLON);
             vector<Predicate> facts = factList();
-            facts.insert(facts.begin(),s); //// Do I do s here or is it something else? Does it have to do with my private variable dp?
+            facts.insert(facts.begin(),s); //// Do I do s here or is it something else?
+                                                     //// Does it have to do with my private DatalogProgram object dp?
             match(RULES);
             match(COLON);
             vector<Predicate> rules = ruleList();
-            rules.insert(rules.begin(),s); //// Do I do s here or is it something else? Does it have to do with my private variable dp?
+            rules.insert(rules.begin(),s); //// Do I do s here or is it something else?
+                                                     //// Does it have to do with my private DatalogProgram object dp?
             match(QUERIES);
             match(COLON);
             Predicate q = query();
             vector<Predicate> queries = queryList();
             queries.insert(queries.begin(),q);
             match(END);
-            return datalogProgram(schemes, facts, queries, rules); //// ?
+//            return datalogProgram(schemes, facts, queries, rules);
+            return datalogProgram(); //// How do I return what I need? It's unhappy about the version above
     }
 
     //// schemeList	->	scheme schemeList | lambda
@@ -197,10 +200,10 @@ public:
             Predicate ruleName = headPredicate();
             match(COLON_DASH);
             Predicate firstPredicate = predicate();
-            vector<Predicate> listofPredicates = predicateList();
-            listofPredicates.insert(listofPredicates.begin(),firstPredicate);
+            vector<Predicate> listOfPredicates = predicateList();
+            listOfPredicates.insert(listOfPredicates.begin(), firstPredicate);
             match(PERIOD);
-            return Rule(ruleName, listofPredicates);
+            return Rule(ruleName, listOfPredicates);
         }
         return {};
     }
@@ -213,6 +216,7 @@ public:
             match(Q_MARK);
             return queryName;
         }
+        return {};
     }
 
     //// headPredicate     ----------------------------------------------------------------------------------

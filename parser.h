@@ -92,13 +92,9 @@ public:
             match(FACTS);
             match(COLON);
             vector<Predicate> facts = factList();
-            facts.insert(facts.begin(),s); //// Do I do s here or is it something else?
-                                                     //// Does it have to do with my private DatalogProgram object dp?
             match(RULES);
             match(COLON);
-            vector<Predicate> rules = ruleList();
-            rules.insert(rules.begin(),s); //// Do I do s here or is it something else?
-                                                     //// Does it have to do with my private DatalogProgram object dp?
+            vector<Rule> rules = ruleList();
             match(QUERIES);
             match(COLON);
             Predicate q = query();
@@ -136,7 +132,7 @@ public:
     }
 
     //// ruleList	->	rule ruleList | lambda
-    vector<Predicate> ruleList() {
+    vector<Rule> ruleList() {
         if(tokenType() != QUERIES) {
 //            Rule r = rule();
 //            vector<Predicate> rules = ruleList();

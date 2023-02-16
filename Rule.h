@@ -20,13 +20,16 @@ public:
     vector<Predicate> predicateList;
 
     string toString() {
-        string output = headPredicate.toString() + " :- ";
+        stringstream output;
+        Predicate savedParameter = predicateList.back();
+        predicateList.pop_back();
+        output << headPredicate.toString() << " :- ";
         for(auto i : predicateList) {
-            output += i.toString() + ",";
+            output << i.toString() + ",";
         }
-        output += predicateList[predicateList.size()-1].toString();
+        output << savedParameter.toString();
 
-        return output;
+        return output.str();
     }
 
 private:

@@ -206,8 +206,8 @@ public:
     Predicate headPredicate() {
         Token ruleName = match(ID);
         match(LEFT_PAREN);
-        match(ID);
-        Parameter p = Parameter(ruleName.getValue(), true);
+        Token firstParameter = match(ID);
+        Parameter p = Parameter(firstParameter.getValue(), true);
         vector<Parameter> ids = idList();
         ids.insert(ids.begin(),p);
         match(RIGHT_PAREN);

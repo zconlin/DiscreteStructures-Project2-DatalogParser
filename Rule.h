@@ -19,18 +19,6 @@ public:
     Predicate headPredicate;
     vector<Predicate> predicateList;
 
-    void addHead(Predicate a) {
-        headPredicate = a;
-    }
-
-    void addPredicate(Predicate x) {
-        predicateList.push_back(x);
-    }
-
-    void addPredicate(vector<Predicate> v) {
-        predicateList.insert(predicateList.end(), v.begin(), v.end());
-    }
-
     string toString() {
         string output = headPredicate.toString() + " :- ";
         for(auto i : predicateList) {

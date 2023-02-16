@@ -107,7 +107,9 @@ public:
         vector<Token> vectorOfTokens;
         do {
             Token tmp = scanToken();
-            vectorOfTokens.push_back(tmp);
+            if (tmp.getType() != COMMENT) {
+                vectorOfTokens.push_back(tmp);
+            }
         } while (input.length() != 0);
         return vectorOfTokens;
     }

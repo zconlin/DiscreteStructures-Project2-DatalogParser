@@ -20,15 +20,13 @@ int main (int argc, char* argv[]) {
     Parser p = Parser(t);
 
     try {
-        p.datalogProgram();
+        DatalogProgram parsedObject = p.datalogProgram();
         cout << "Success!" << endl;
-        for (Token token : t) {
-//            cout << p.toString();
-        }
+        parsedObject.toString();
     }
     catch (Token error) {
         cout << "Failure!" << endl;
-        error.toString();
+        cout << "  " << error.toString() << endl;
     }
 
     return 0;

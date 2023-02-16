@@ -35,10 +35,30 @@ public:
     vector<Rule> Rules;
     set<string> Domain;
 
+    void toString() {
+        cout << "Schemes(" << (Schemes.size()) << "):\n";
+        for(auto & Scheme : Schemes) {
+            cout << "  " << Scheme.toString() << "\n";
+        }
+        cout << "Facts(" << (Facts.size()) <<  "):\n";
+        for(auto & Fact : Facts) {
+            cout << "  " << Fact.toString() << ".\n";
+        }
+        cout << "Rules(" << (Rules.size()) << "):\n";
+        for(auto & Rule : Rules) {
+            cout << "  " << Rule.toString() << ".\n";
+        }
+        cout << "Queries(" << (Queries.size()) << "):\n";
+        for(auto & Querie : Queries) {
+            cout << "  " << Querie.toString() << "?\n";
+        }
+        cout << "Domain(" << (Domain.size()) << "):\n";
+        for(const string& domainString : Domain) {
+                cout << "  " << domainString << "\n";
+        }
+    }
 
-
-
-    string toString() {
+//    string toString() {
 //        {
 //            string output;
 //            output = "Schemes(" + intToString(Schemes.size()) + "):\n";
@@ -77,7 +97,7 @@ public:
 //            string output = convert.str();
 //            return output;
 //        }
-        
+
 //        Predicate::toString();
 //        Rule::toString();
 
@@ -92,7 +112,7 @@ public:
 //        factsString = "Facts(" << Facts.size() << "):" << endl;
 
 //        return output;
-    }
+//    }
 };
 
 #endif //CS236PROJECT2_DATALOGPARSER_DATALOGPROGRAM_H

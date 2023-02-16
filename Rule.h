@@ -13,7 +13,7 @@ class Rule
 {
 public:
     Rule(Predicate headPredicate, vector<Predicate> predicateList)
-            : predicateList(predicateList), headPredicate(headPredicate) {}
+            : headPredicate(headPredicate), predicateList(predicateList) {}
     Rule(){}
 
     Predicate headPredicate;
@@ -33,8 +33,8 @@ public:
 
     string toString() {
         string output = headPredicate.toString() + " :- ";
-        for(int i = 0; i < predicateList.size()-1; i++) {
-            output += predicateList[i].toString() + ",";
+        for(auto i : predicateList) {
+            output += i.toString() + ",";
         }
         output += predicateList[predicateList.size()-1].toString();
 

@@ -14,7 +14,7 @@ using namespace std;
 class Predicate
 {
 public:
-    Predicate(string value, vector<Parameter> parameterList): name(value), parameterList(parameterList) {}
+    Predicate(string value, vector<Parameter> parameterList): parameterList(parameterList), name(value) {}
     Predicate() {}
 
     vector<Parameter> parameterList;
@@ -31,8 +31,8 @@ public:
     string toString() {
         string output;
         output = name + "(";
-        for(int i = 0; i < parameterList.size()-1; i++) {
-            output = output + parameterList[i].value + ",";
+        for(const auto& i : parameterList) {
+            output = output + i.value + ",";
         }
         output += parameterList[parameterList.size()-1].value + ")";
 

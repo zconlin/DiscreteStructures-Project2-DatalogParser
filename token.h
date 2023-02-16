@@ -86,9 +86,9 @@ public:
     }
 
 	string toString() const {
-	stringstream out;
-			out << "(" << typeName(type) << "," << "\"" << value << "\"" << "," << line << ")";
-			return out.str();
+	    stringstream out;
+        out << "(" << typeName(type) << "," << "\"" << value << "\"" << "," << line << ")";
+        return out.str();
 	}
 
     TokenType getType() const {

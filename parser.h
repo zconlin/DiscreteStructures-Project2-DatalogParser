@@ -155,6 +155,9 @@ public:
             match(RIGHT_PAREN);
             return Predicate(schemeName.getValue(),ids);
         }
+        else {
+            throwError(tokens.at(0));
+        }
         return {};
     }
 
@@ -172,6 +175,9 @@ public:
             match(PERIOD);
             return Predicate(schemeName.getValue(),strings);
         }
+        else {
+            throwError(tokens.at(0));
+        }
         return {};
     }
 
@@ -187,6 +193,9 @@ public:
             match(PERIOD);
             return Rule(ruleName, listOfPredicates);
         }
+        else {
+            throwError(tokens.at(0));
+        }
         return {};
     }
 
@@ -197,6 +206,9 @@ public:
             Predicate queryName = predicate();
             match(Q_MARK);
             return queryName;
+        }
+        else {
+            throwError(tokens.at(0));
         }
         return {};
     }
@@ -225,6 +237,9 @@ public:
             parameters.insert(parameters.begin(),firstParameter);
             match(RIGHT_PAREN);
             return Predicate(idName.getValue(),parameters);
+        }
+        else {
+            throwError(tokens.at(0));
         }
         return {};
     }
@@ -301,6 +316,9 @@ public:
         else if (tokenType() == ID) {
             Token idName = match(ID);
             return Parameter(idName.getValue(),true);
+        }
+        else {
+            throwError(tokens.at(0));
         }
         return Parameter("", false);
     }

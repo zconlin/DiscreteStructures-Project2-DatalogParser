@@ -37,17 +37,9 @@ public:
 
     Parser(const vector<Token>& tokens) : tokens(tokens) {}
 
-//    void toString() {
-//        DatalogProgram().toString();
-//    };
-
     TokenType tokenType() const { // Returns the type of the current Token
         return tokens.at(0).getType();
     };
-
-    string tokenString() { //// Obsolete maybe?
-        return tokens.at(0).getValue();
-    }
 
     void advanceToken() { // Moves to the next Token
         if(tokens.size() > 1) {
@@ -61,11 +53,7 @@ public:
 
     Token match(TokenType t) {
         Token token = tokens.at(0);
-        if (tokens.at(0).getType() == END) {
-            return token;
-        }
         if (tokens.at(0).getType() == t) {
-//            cout << tokens.at(0).getValue(); //debug
             advanceToken();
             return token;
         }

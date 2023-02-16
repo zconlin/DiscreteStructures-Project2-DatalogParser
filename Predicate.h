@@ -29,14 +29,15 @@ public:
 //    }
 
     string toString() {
-        string output;
-        output = name + "(";
+        stringstream output;
+        Parameter savedParameter = parameterList.back();
+        parameterList.pop_back();
+        output << name << "(";
         for(const auto& i : parameterList) {
-            output = output + i.value + ",";
+            output << i.value << ",";
         }
-        output += parameterList[parameterList.size()-1].value + ")";
-
-        return output;
+        output << savedParameter.value << ")";
+        return output.str();
     }
 
 };

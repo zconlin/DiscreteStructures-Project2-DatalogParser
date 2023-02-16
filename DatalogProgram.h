@@ -49,70 +49,14 @@ public:
             cout << "  " << Rule.toString() << ".\n";
         }
         cout << "Queries(" << (Queries.size()) << "):\n";
-        for(auto & Querie : Queries) {
-            cout << "  " << Querie.toString() << "?\n";
+        for(auto & Query : Queries) {
+            cout << "  " << Query.toString() << "?\n";
         }
         cout << "Domain(" << (Domain.size()) << "):\n";
         for(const string& domainString : Domain) {
                 cout << "  " << domainString << "\n";
         }
     }
-
-//    string toString() {
-//        {
-//            string output;
-//            output = "Schemes(" + intToString(Schemes.size()) + "):\n";
-//            for(int i = 0; i < Schemes.size(); i++)
-//            {
-//                output += "  " + Schemes[i].toString() + "\n";
-//            }
-//            output += "Facts(" + intToString(Facts.size()) +  "):\n";
-//            for(int i = 0; i < Facts.size(); i++)
-//            {
-//                output += "  " + Facts[i].toString() + ".\n";
-//            }
-//            output += "Rules(" + intToString(Rules.size()) + "):\n";
-//            for(int i = 0; i < Rules.size(); i++)
-//            {
-//                output += "  " + Rules[i].toString() + ".\n";
-//            }
-//
-//            output += "Queries(" + intToString(Queries.size()) + "):\n";
-//            for(int i = 0; i < Queries.size(); i++)
-//            {
-//                output += "  " + Queries[i].toString() + "?\n";
-//            }
-//
-//            output += "Domain(" + intToString(Domain.size()) + "):\n";
-//            for(int i = 0; i < Domain.size(); i++)
-//            {
-//                output += "  " + Domain[i] + "\n";
-//            }
-//            return output;
-//        }
-
-//        string DatalogProgram::intToString(int x) {
-//            stringstream convert;
-//            convert << x;
-//            string output = convert.str();
-//            return output;
-//        }
-
-//        Predicate::toString();
-//        Rule::toString();
-
-//        string schemesString;
-//        string factsString;
-//        string queriesString;
-//        string rulesString;
-//        string domainString;
-//        string output;
-
-//        schemesString = "Schemes(" + Schemes.size() + "):" << endl;
-//        factsString = "Facts(" << Facts.size() << "):" << endl;
-
-//        return output;
-//    }
 };
 
 #endif //CS236PROJECT2_DATALOGPARSER_DATALOGPROGRAM_H
